@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="GeneFinder.Views.PedazoReporteControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="75" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <!--<RowDefinition Height="50" />-->
+            <!--<RowDefinition Height="50" />-->
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!--<Grid Grid.Row="0" x:Name="InicioExon" Visibility="Collapsed">
+            <Polygon  Fill="#FFFCC970">
+                <Polygon.Points>
+                    <Point X="20" Y="15"/>
+                    <Point X="30" Y="25"/>
+                    <Point X="20" Y="35"/>
+                    <Point X="75" Y="35"/>
+                    <Point X="75" Y="15"/>
+                </Polygon.Points>
+            </Polygon>
+
+        </Grid>
+        <Grid Grid.Row="0" x:Name="ExonIntermedio" Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle x:Name="exonClaroUno" Grid.Column="0" Fill="#FFFCC970" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="exonClaroDos" Grid.Column="1" Fill="#FFFCC970" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="exonClaroTres" Grid.Column="2" Fill="#FFFCC970" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="exonObscuroUno" Grid.Column="0" Fill="#FFF05A25" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="exonObscuroDos" Grid.Column="1" Fill="#FFF05A25" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="exonObscuroTres" Grid.Column="2" Fill="#FFF05A25" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+        </Grid>
+        <Grid Grid.Row="0" x:Name="FinalExon" Visibility="Collapsed">
+            <Polygon  Fill="#FFFCC970">
+                <Polygon.Points>
+                    <Point X="40" Y="15"/>
+                    <Point X="75" Y="25"/>
+                    <Point X="40" Y="35"/>
+                    <Point X="0" Y="35"/>
+                    <Point X="0" Y="15"/>
+                </Polygon.Points>
+            </Polygon>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="InicioIntron" Visibility="Collapsed">
+            <Polygon  Fill="#7794cc">
+                <Polygon.Points>
+                    <Point X="35" Y="15"/>
+                    <Point X="0" Y="25"/>
+                    <Point X="35" Y="35"/>
+                    <Point X="75" Y="35"/>
+                    <Point X="75" Y="15"/>
+                </Polygon.Points>
+            </Polygon>
+
+        </Grid>
+        <Grid Grid.Row="1" x:Name="IntronIntermedio" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle x:Name="intronClaroUno" Grid.Column="0" Fill="#7794cc" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="intronClaroDos" Grid.Column="1" Fill="#7794cc" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="intronClaroTres" Grid.Column="2" Fill="#7794cc" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="intronObscuroUno" Grid.Column="0" Fill="#23225b" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="intronObscuroDos" Grid.Column="1" Fill="#23225b" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Rectangle x:Name="intronObscuroTres" Grid.Column="2" Fill="#23225b" Height="20" VerticalAlignment="Center" Visibility="Collapsed"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="FinalIntron" Visibility="Collapsed">
+            <Polygon  Fill="#7794cc">
+                <Polygon.Points>
+                    <Point X="55" Y="15"/>
+                    <Point X="45" Y="25"/>
+                    <Point X="55" Y="35"/>
+                    <Point X="0" Y="35"/>
+                    <Point X="0" Y="15"/>
+                </Polygon.Points>
+            </Polygon>
+        </Grid>-->
+        <Grid Grid.Row="0">
+            <Rectangle x:Name="fondoProteina" Height="25" Fill="#FFF7E892" />
+            <Label x:Name="labelProteina" Content="P" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="labelCadena1" Grid.Column="0" Content="A" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label x:Name="labelCadena2" Grid.Column="1" Content="T" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label x:Name="labelCadena3" Grid.Column="2" Content="G" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="2" x:Name="GridConservation">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="1" Fill="#FFEB9F3C" />
+            <Line x:Name="lineaUnoArriba" Grid.Row="0" Stroke="Black" VerticalAlignment="Bottom" StrokeThickness="2" Fill="Black" X1="0" X2="75" Margin="0,1,0,0"/>
+            <Line x:Name="lineaUnoAbajo" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" StrokeThickness="2" Fill="Black" X1="0" X2="75" Margin="0,0,0,-1"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Column="0" x:Name="conservationUno" Grid.Row="0" Fill="#285687" Margin="0,2,0,0" Visibility="Collapsed"/>
+            <Rectangle Grid.Column="1" x:Name="conservationDos" Grid.Row="0" Fill="#285687" Margin="0,2,0,0" Visibility="Collapsed"/>
+            <Rectangle Grid.Column="2" x:Name="conservationTres" Grid.Row="0" Fill="#285687" Margin="0,2,0,0" Visibility="Collapsed"/>
+            <Rectangle Grid.Column="0" x:Name="conservationCuatro" Grid.Row="1" Fill="#285687" Margin="0,0,0,2" Visibility="Collapsed"/>
+            <Rectangle Grid.Column="1" x:Name="conservationCinco" Grid.Row="1" Fill="#285687" Margin="0,0,0,2" Visibility="Collapsed"/>
+            <Rectangle Grid.Column="2" x:Name="conservationSeis" Grid.Row="1" Fill="#285687" Margin="0,0,0,2" Visibility="Collapsed"/>
+            <Line x:Name="lineaDos" Grid.Row="1" Stroke="Black" VerticalAlignment="Top" StrokeThickness="2" Fill="Black" X1="0" X2="75" Margin="0,1,0,0" Grid.ColumnSpan="3" Panel.ZIndex="2" />
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="labelCadenaDos1" Grid.Column="0" Content="A" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label x:Name="labelCadenaDos2" Grid.Column="1" Content="T" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label x:Name="labelCadenaDos3" Grid.Column="2" Content="G" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="labelCadenaTres1" Grid.Column="0" Content="A" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label x:Name="labelCadenaTres2" Grid.Column="1" Content="T" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label x:Name="labelCadenaTres3" Grid.Column="2" Content="G" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <StackPanel x:Name="StackPanelTranscrips" Grid.Row="6">
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

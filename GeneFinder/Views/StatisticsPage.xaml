@@ -1,0 +1,252 @@
+﻿<Page x:Class="GeneFinder.Views.StatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      xmlns:System="clr-namespace:System;assembly=mscorlib" 
+      mc:Ignorable="d" 
+      d:DesignHeight="794" d:DesignWidth="822.5" Height="800" Width="900"
+	Title="StatisticsPage" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="headerGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15" HorizontalAlignment="Center">
+                <Label FontWeight="Bold" FontSize="18" Content="Selected smORFs:"  VerticalAlignment="Center"  />
+                <TextBlock FontWeight="Normal" x:Name="numSelectedTextBox" FontSize="18" Text="0"  VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15" HorizontalAlignment="Center">
+                <Label FontWeight="Bold" FontSize="18" Content="Total smORFs:"  VerticalAlignment="Center"  />
+                <TextBlock FontWeight="Normal" x:Name="numTotalTextBox" FontSize="18" Text="0"  VerticalAlignment="Center"/>
+            </StackPanel>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="filterSmorfButton" Content="Filter smORFs" HorizontalAlignment="Right" Margin="15" Click="filterSmorfButton_Click" Padding="5"/>
+                <Button Grid.Column="1" x:Name="saveSelectionSmorfButton" Content="Save Selection smORFs" HorizontalAlignment="Right" Margin="15" Click="saveSelectionSmorfButton_Click" Padding="5"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="graficasGrid" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="consevationGrid" Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label FontWeight="Bold" FontSize="18" Content="Conservation:" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+                <telerik:RadPieChart Grid.Row="1" Grid.Column="0" x:Name="conservationChart" Palette="VisualStudio2013">
+                    <telerik:DoughnutSeries x:Name="conservationSeries" ShowLabels="False">
+                        <telerik:DoughnutSeries.LegendSettings>
+                            <telerik:DataPointLegendSettings />
+                        </telerik:DoughnutSeries.LegendSettings>
+                    </telerik:DoughnutSeries>
+                </telerik:RadPieChart>
+                <telerik:RadLegend Grid.Row="1" Grid.Column="1" Items="{Binding LegendItems, ElementName=conservationChart}" VerticalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="annotationGrid" Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label FontWeight="Bold" FontSize="18" Content="Annotation:" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+                <telerik:RadPieChart Grid.Row="1" Grid.Column="0" x:Name="annotationChart" Palette="VisualStudio2013">
+                    <telerik:DoughnutSeries x:Name="annotationSeries" ShowLabels="False">
+                        <telerik:DoughnutSeries.LegendSettings>
+                            <telerik:DataPointLegendSettings />
+                        </telerik:DoughnutSeries.LegendSettings>
+                    </telerik:DoughnutSeries>
+                </telerik:RadPieChart>
+                <telerik:RadLegend Grid.Row="1" Grid.Column="1" Items="{Binding LegendItems, ElementName=annotationChart}" VerticalAlignment="Center" />
+            </Grid>
+            <Grid x:Name="kozakGrid" Grid.Row="2" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label FontWeight="Bold" FontSize="18" Content="Kozak Scores:" HorizontalAlignment="Center"/>
+                <telerik:RadCartesianChart Grid.Row="1" x:Name="kozakChart">
+                    <telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:LinearAxis/>
+                    </telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:CategoricalAxis x:Name="horizontalAxisKozak"/>
+                    </telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:RadCartesianChart.Series>
+                        <telerik:BarSeries x:Name="seriesKozak"/>
+                    </telerik:RadCartesianChart.Series>
+                </telerik:RadCartesianChart>
+            </Grid>
+
+            <Grid x:Name="distributionGrid" Grid.Row="0" Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label FontWeight="Bold" FontSize="18" Content="Score Distribution:" HorizontalAlignment="Center"/>
+                <telerik:RadCartesianChart Grid.Row="1" x:Name="chartScore">
+                    <telerik:RadCartesianChart.Grid>
+                        <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                            <telerik:CartesianChartGrid.MajorYLineStyle>
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="Gray"/>
+                                </Style>
+                            </telerik:CartesianChartGrid.MajorYLineStyle>
+                            <telerik:CartesianChartGrid.MajorXLineStyle>
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="Gray"/>
+                                </Style>
+                            </telerik:CartesianChartGrid.MajorXLineStyle>
+                        </telerik:CartesianChartGrid>
+                    </telerik:RadCartesianChart.Grid>
+                    <telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:LinearAxis/>
+                    </telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:LinearAxis x:Name="horizontalAxisScore" LabelFitMode="MultiLine"/>
+                    </telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:RadCartesianChart.Series>
+                        <telerik:ScatterSplineSeries x:Name="serieScore"/>
+                    </telerik:RadCartesianChart.Series>
+                </telerik:RadCartesianChart>
+            </Grid>
+
+            <Grid x:Name="lengthGrid" Grid.Row="0" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label FontWeight="Bold" FontSize="18" Content="Length Distribution:" HorizontalAlignment="Center"/>
+                <telerik:RadCartesianChart Grid.Row="1">
+                    <telerik:RadCartesianChart.Grid>
+                        <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                            <telerik:CartesianChartGrid.MajorYLineStyle>
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="Gray"/>
+                                </Style>
+                            </telerik:CartesianChartGrid.MajorYLineStyle>
+                            <telerik:CartesianChartGrid.MajorXLineStyle>
+                                <Style TargetType="{x:Type Line}">
+                                    <Setter Property="Stroke" Value="Gray"/>
+                                </Style>
+                            </telerik:CartesianChartGrid.MajorXLineStyle>
+                        </telerik:CartesianChartGrid>
+                    </telerik:RadCartesianChart.Grid>
+                    <telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:LinearAxis/>
+                    </telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:LinearAxis x:Name="horizontalAxisLength"/>
+                    </telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:RadCartesianChart.Series>
+                        <telerik:ScatterSplineSeries x:Name="serieLength"/>
+                    </telerik:RadCartesianChart.Series>
+
+                </telerik:RadCartesianChart>
+            </Grid>
+            
+            <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="classificationGrid" Grid.Column="0" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label FontWeight="Bold" FontSize="18" Content="Classification:" HorizontalAlignment="Center"/>
+                    <telerik:RadPieChart Grid.Row="1"  x:Name="classificationChart" Palette="VisualStudio2013">
+                        <telerik:RadPieChart.SmartLabelsStrategy>
+                            <telerik:PieChartSmartLabelsStrategy DisplayMode="SpiderAlignedOutwards"/>
+                        </telerik:RadPieChart.SmartLabelsStrategy>
+                        <telerik:DoughnutSeries x:Name="classificationSeries" ShowLabels="False">
+                            <telerik:DoughnutSeries.LegendSettings>
+                                <telerik:DataPointLegendSettings />
+                            </telerik:DoughnutSeries.LegendSettings>
+                        </telerik:DoughnutSeries>
+                    </telerik:RadPieChart>
+                    <telerik:RadLegend Grid.Row="2" Items="{Binding LegendItems, ElementName=classificationChart}" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+
+                </Grid>
+                <Grid x:Name="coveredGrid" Grid.Column="1" Grid.Row="0">
+                    <!--<Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label FontWeight="Bold" FontSize="18" Content="Covered smORFs:"  HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+                    <telerik:RadPieChart Grid.Row="1" Grid.Column="0" x:Name="coverChart" Palette="VisualStudio2013">
+                        <telerik:DoughnutSeries x:Name="coverSeries" ShowLabels="False">
+                            <telerik:DoughnutSeries.LegendSettings>
+                                <telerik:DataPointLegendSettings />
+                            </telerik:DoughnutSeries.LegendSettings>
+                        </telerik:DoughnutSeries>
+                    </telerik:RadPieChart>
+                    <telerik:RadLegend Grid.Row="2" Grid.Column="0" Items="{Binding LegendItems, ElementName=coverChart}" VerticalAlignment="Center" />
+                </Grid>
+                <Grid x:Name="hitsGrid" Grid.Column="2" Grid.Row="0">
+                    <!--<Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label FontWeight="Bold" FontSize="18" Content="Hit smORFs:"  HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+                    <telerik:RadPieChart Grid.Row="1" Grid.Column="0" x:Name="hitChart" Palette="VisualStudio2013">
+                        <telerik:DoughnutSeries x:Name="hitsSeries" ShowLabels="False">
+                            <telerik:DoughnutSeries.LegendSettings>
+                                <telerik:DataPointLegendSettings />
+                            </telerik:DoughnutSeries.LegendSettings>
+                        </telerik:DoughnutSeries>
+                    </telerik:RadPieChart>
+                    <telerik:RadLegend Grid.Row="2" Grid.Column="0" Items="{Binding LegendItems, ElementName=hitChart}" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+            
+            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <Grid Height="Auto" VerticalAlignment="Top">
+                        <WrapPanel x:Name="heatMapsPanel" />
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

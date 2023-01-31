@@ -1,0 +1,80 @@
+﻿<Window x:Class="GeneFinder.Views.SelectScoreWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Select Score" Height="500" Width="800" Icon="/GeneFinder;component/GFicono1.ico" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="distributionGrid" Grid.Row="0" Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label FontWeight="Bold" FontSize="18" Content="PhyloCSF cumulative distribution:" HorizontalAlignment="Center"/>
+            <telerik:RadCartesianChart x:Name="chartScore" Grid.Row="1">
+                <telerik:RadCartesianChart.Grid>
+                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                            <Style TargetType="{x:Type Line}">
+                                <Setter Property="Stroke" Value="Gray"/>
+                            </Style>
+                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                            <Style TargetType="{x:Type Line}">
+                                <Setter Property="Stroke" Value="Gray"/>
+                            </Style>
+                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                    </telerik:CartesianChartGrid>
+                </telerik:RadCartesianChart.Grid>
+                <telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:LinearAxis Maximum="100" Minimum="0" MajorStep="10">
+                        <telerik:LinearAxis.Title>
+                            <TextBlock Text="smORF fraction (%)" FontSize="16" FontWeight="Bold"/>
+                        </telerik:LinearAxis.Title>
+                    </telerik:LinearAxis>
+                </telerik:RadCartesianChart.VerticalAxis>
+                <telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:LinearAxis x:Name="horizontalAxisScore" LabelFitMode="MultiLine">
+                        <telerik:LinearAxis.Title>
+                            <TextBlock Text="Phylo CSF Score" FontSize="16" FontWeight="Bold"/>
+                        </telerik:LinearAxis.Title>
+                    </telerik:LinearAxis>
+                                        
+                </telerik:RadCartesianChart.HorizontalAxis>
+                <telerik:RadCartesianChart.Series>
+                    <telerik:ScatterSplineSeries x:Name="serieScore"/>
+                </telerik:RadCartesianChart.Series>
+            </telerik:RadCartesianChart>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
+                <Label Grid.Row="2" Grid.Column="0" FontSize="16" Content="PhyloCSF Score:" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <telerik:RadNumericUpDown Grid.Row="3" x:Name="textBoxThreshold" HorizontalAlignment="Center" Value="0.2" Maximum="50" Minimum="-150" NumberDecimalDigits="3" LargeChange="1" SmallChange="0.01" ValueChanged="textBoxThreshold_ValueChanged"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
+                <Label Grid.Row="2" Grid.Column="0" FontSize="16" Content="smORF fraction (%):" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <!--<telerik:RadNumericUpDown Grid.Row="3" x:Name="textBoxPercentageThreshold" HorizontalAlignment="Center" Value="50" Maximum="100" Minimum="1" LargeChange="1" IsInteger="True" CustomUnit="" ValueChanged="textBoxPercentageThreshold_ValueChanged" />-->
+                <telerik:RadNumericUpDown x:Name="textBoxPercentageThreshold" VerticalAlignment="Center"  IsEditable="True" Value="50" Minimum="1" Maximum="100" ValueChanged="textBoxPercentageThreshold_ValueChanged" NumberDecimalDigits="2" CustomUnit="%" LargeChange="1" SmallChange="0.01"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
+                <Label Grid.Row="2" Grid.Column="0" FontSize="16" Content="smORF Number: " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Label x:Name="smorfNumberLabel" Grid.Row="2" Grid.Column="0" FontSize="16" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+            </StackPanel>
+        </Grid>
+        <telerik:RadButton Grid.Row="1"  Grid.Column="1" x:Name="cancelButton" Content="Ok" Margin="5"  IsEnabled="True" VerticalAlignment="Bottom" Padding="5" Width="40" Click="cancelButton_Click" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

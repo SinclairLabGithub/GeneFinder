@@ -1,0 +1,28 @@
+﻿<Window x:Class="GeneFinder.Views.RNAConditionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="RNA Condition" Height="300" Width="300" Icon="/GeneFinder;component/GFicono1.ico" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="15">
+            <StackPanel>
+                <Label FontWeight="Bold" FontSize="18" Content="Add new condition:"/>
+                <Label FontWeight="Normal" FontSize="16" Content="Condition name:" Margin="10,0,0,0"/>
+                <TextBox x:Name="TextBoxConditionName" Margin="15,0,15,0"/>
+                <Label FontWeight="Normal" FontSize="16" Content="Minumin Map Quality:" Margin="10,0,0,0"/>
+                <telerik:RadNumericUpDown x:Name="mapQualityNumUpDown" Value="70" Minimum="1" Maximum="100" IsInteger="True" Width="50" MinWidth="50" HorizontalAlignment="Center" Margin="0,5,15,0"/>
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <telerik:RadButton  x:Name="acceptButton" Content="Accept" Margin="5"  IsEnabled="True" VerticalAlignment="Center" Padding="5" Width="76" Click="acceptButton_Click"/>
+                <telerik:RadButton  x:Name="cancelButton" Content="Cancel" Margin="5"  IsEnabled="True" VerticalAlignment="Center" Padding="5" Width="76" Click="cancelButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

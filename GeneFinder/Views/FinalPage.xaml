@@ -1,0 +1,887 @@
+﻿<Page x:Class="GeneFinder.Views.FinalPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="900"
+	Title="FinalPage" Loaded="Page_Loaded">
+    <Page.Resources>
+        <Style x:Key="AxisTitleStyle" TargetType="telerik:AxisTitle">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <telerik:RadTabControl DropDownDisplayMode="Collapsed">
+            <telerik:RadTabItem Header="Statistics">
+                <Grid>
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="headerGrid" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15" HorizontalAlignment="Left">
+                                <Label FontWeight="Bold" FontSize="18" Content="Selected smORFs:"  VerticalAlignment="Bottom"  />
+                                <TextBlock FontWeight="Normal" x:Name="numSelectedTextBox" FontSize="18" Text="0"  VerticalAlignment="Center" />
+                                <Label FontWeight="Bold" FontSize="18" Content="Total smORFs:"  VerticalAlignment="Center" BorderThickness="20,0,0,0"  />
+                                <TextBlock FontWeight="Normal" x:Name="numTotalTextBox" FontSize="18" Text="0"  VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="15" HorizontalAlignment="Center">
+                                
+                            </StackPanel>
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <!--<Button Grid.Column="0" x:Name="startOverButton" Content="Start Over" HorizontalAlignment="Right" Margin="15" Click="startOverButton_Click" Padding="5"/>-->
+                                <Grid Grid.Column="0" Width="48" Height="48" Margin="0,0,0,0" Cursor="Hand" MouseLeftButtonDown="BackGrid_MouseLeftButtonDown" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Grid>
+                                        <Grid Width="48" Height="48" Visibility="Visible">
+                                            <Path Data="M50.5,4.7500001C25.232973,4.75 4.75,25.232973 4.7500001,50.5 4.75,75.767029 25.232973,96.25 50.5,96.25 75.767029,96.25 96.25,75.767029 96.25,50.5 96.25,25.232973 75.767029,4.75 50.5,4.7500001z M50.5,0C78.390381,0 101,22.609621 101,50.5 101,78.390381 78.390381,101 50.5,101 22.609621,101 0,78.390381 0,50.5 0,22.609621 22.609621,0 50.5,0z" Stretch="Fill" Fill="#FF000000" Name="Stroke" Visibility="Visible" />
+                                        </Grid>
+                                        <Path Data="M16.200012,8.3999948L27.899963,17.500002 27.899963,31.200001 18.399963,31.200001 18.399963,21.599993 13.399963,21.599993 13.399963,31.200001 4,31.200001 4,17.599993z M16.200012,0L32,12.599993 32,16.800005 16.200012,4.0999912 0,17.199999 0,13.000002z" Stretch="Uniform" Fill="#FF000000" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <TransformGroup.Children>
+                                                        <RotateTransform Angle="0" />
+                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                    </TransformGroup.Children>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                </Grid>
+                                <Button Grid.Column="1" x:Name="filterSmorfButton" Content="Filter smORFs" HorizontalAlignment="Right" Margin="15" Click="filterSmorfButton_Click" Padding="5"/>
+
+                                <Button Grid.Column="2" x:Name="saveSelectionSmorfButton" Content="Save Selection smORFs" HorizontalAlignment="Right" Margin="15" Click="saveSelectionSmorfButton_Click" Padding="5"/>
+
+                                <Button Grid.Column="3" x:Name="ReportButton" Content="Report" HorizontalAlignment="Right" Margin="15" Click="ReportButton_Click" Padding="5"/>
+
+                            </Grid>
+                        </Grid>
+                        <Grid x:Name="graficasGrid" Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid x:Name="consevationGrid" Grid.Row="0" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label FontWeight="Bold" FontSize="18" Content="Conservation:" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                                <Button x:Name="CopiarConservationButtons" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="CopiarConservationButtons_Click">
+                                    <Grid>
+                                        <Path Data="M48.549862,28.961L54.905247,28.961 68.569,42.623749 65.391953,45.802982 54.821945,56.373001 48.633259,56.373001 48.549862,56.291397 59.967552,44.870872 29.844999,44.870872 29.844999,40.379623 59.967552,40.379623z M23.416599,2.7189996C21.47262,2.7190001 19.896,4.2110781 19.896,6.0522499 19.896,7.8909721 21.47262,9.3850002 23.416599,9.3850002 25.360378,9.3850002 26.937,7.8909721 26.937,6.0522499 26.937,4.2110781 25.360378,2.7190001 23.416599,2.7189996z M23.416601,0C26.836042,-3.0120646E-08,29.627556,2.5418424,29.798687,5.7406506L29.806969,6.0509996 35.23,6.0509996 35.23,7.9879999 46.834,7.9879999 46.834,37.950001 41.696999,37.950001 41.696999,14.389 35.23,14.389 35.23,20.865 11.604,20.865 11.604,14.389 5.1370006,14.389 5.1370006,59.294994 41.696999,59.294994 41.696999,47.382 46.834,47.382 46.834,64.338997 0,64.338997 0,7.9879999 11.604,7.9879999 11.604,6.0509996 17.026033,6.0509996 17.034315,5.7406506C17.205446,2.5418424,19.996967,-3.0120646E-08,23.416601,0z" Stretch="Uniform" Fill="#FFB2B2AE" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <TransformGroup.Children>
+                                                        <RotateTransform Angle="0" />
+                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                    </TransformGroup.Children>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                </Button>
+                                <Grid x:Name="CopiaConservation" Grid.Row="1" Grid.Column="0" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <telerik:RadPieChart x:Name="conservationChart" Palette="VisualStudio2013">
+                                        <telerik:DoughnutSeries x:Name="conservationSeries" ShowLabels="False">
+                                            <telerik:DoughnutSeries.LegendSettings>
+                                                <telerik:DataPointLegendSettings />
+                                            </telerik:DoughnutSeries.LegendSettings>
+                                        </telerik:DoughnutSeries>
+                                    </telerik:RadPieChart>
+                                    <telerik:RadLegend Grid.Column="1" Items="{Binding LegendItems, ElementName=conservationChart}" VerticalAlignment="Center" />
+                                </Grid>
+
+                            </Grid>
+                            <Grid x:Name="annotationGrid" Grid.Row="1" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label FontWeight="Bold" FontSize="18" Content="Annotation:" Grid.ColumnSpan="2" HorizontalAlignment="Center" />
+                                <Button x:Name="CopiarAnnotationButton" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="CopiarAnnotationButton_Click" >
+                                    <Grid>
+                                        <Path Data="M48.549862,28.961L54.905247,28.961 68.569,42.623749 65.391953,45.802982 54.821945,56.373001 48.633259,56.373001 48.549862,56.291397 59.967552,44.870872 29.844999,44.870872 29.844999,40.379623 59.967552,40.379623z M23.416599,2.7189996C21.47262,2.7190001 19.896,4.2110781 19.896,6.0522499 19.896,7.8909721 21.47262,9.3850002 23.416599,9.3850002 25.360378,9.3850002 26.937,7.8909721 26.937,6.0522499 26.937,4.2110781 25.360378,2.7190001 23.416599,2.7189996z M23.416601,0C26.836042,-3.0120646E-08,29.627556,2.5418424,29.798687,5.7406506L29.806969,6.0509996 35.23,6.0509996 35.23,7.9879999 46.834,7.9879999 46.834,37.950001 41.696999,37.950001 41.696999,14.389 35.23,14.389 35.23,20.865 11.604,20.865 11.604,14.389 5.1370006,14.389 5.1370006,59.294994 41.696999,59.294994 41.696999,47.382 46.834,47.382 46.834,64.338997 0,64.338997 0,7.9879999 11.604,7.9879999 11.604,6.0509996 17.026033,6.0509996 17.034315,5.7406506C17.205446,2.5418424,19.996967,-3.0120646E-08,23.416601,0z" Stretch="Uniform" Fill="#FFB2B2AE" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <TransformGroup.Children>
+                                                        <RotateTransform Angle="0" />
+                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                    </TransformGroup.Children>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                </Button>
+                                <Grid x:Name="CopiarAnnotation" Grid.Row="1" Grid.Column="0" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <telerik:RadPieChart  x:Name="annotationChart" Palette="VisualStudio2013">
+
+                                        <telerik:DoughnutSeries x:Name="annotationSeries" ShowLabels="False">
+                                            <telerik:DoughnutSeries.LegendSettings>
+                                                <telerik:DataPointLegendSettings />
+                                            </telerik:DoughnutSeries.LegendSettings>
+                                        </telerik:DoughnutSeries>
+                                    </telerik:RadPieChart>
+                                    <telerik:RadLegend Grid.Row="1" Grid.Column="1" Items="{Binding LegendItems, ElementName=annotationChart}" VerticalAlignment="Center" />
+                                </Grid>
+
+                            </Grid>
+                            <Grid x:Name="kozakGrid" Grid.Row="2" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label FontWeight="Bold" FontSize="18" Content="Kozak Score Distribution:" HorizontalAlignment="Center" />
+                                <Button x:Name="CopiarKozkButton" VerticalAlignment="Top" HorizontalAlignment="Right" Click="CopiarKozkButton_Click" >
+                                    <Grid>
+                                        <Path Data="M48.549862,28.961L54.905247,28.961 68.569,42.623749 65.391953,45.802982 54.821945,56.373001 48.633259,56.373001 48.549862,56.291397 59.967552,44.870872 29.844999,44.870872 29.844999,40.379623 59.967552,40.379623z M23.416599,2.7189996C21.47262,2.7190001 19.896,4.2110781 19.896,6.0522499 19.896,7.8909721 21.47262,9.3850002 23.416599,9.3850002 25.360378,9.3850002 26.937,7.8909721 26.937,6.0522499 26.937,4.2110781 25.360378,2.7190001 23.416599,2.7189996z M23.416601,0C26.836042,-3.0120646E-08,29.627556,2.5418424,29.798687,5.7406506L29.806969,6.0509996 35.23,6.0509996 35.23,7.9879999 46.834,7.9879999 46.834,37.950001 41.696999,37.950001 41.696999,14.389 35.23,14.389 35.23,20.865 11.604,20.865 11.604,14.389 5.1370006,14.389 5.1370006,59.294994 41.696999,59.294994 41.696999,47.382 46.834,47.382 46.834,64.338997 0,64.338997 0,7.9879999 11.604,7.9879999 11.604,6.0509996 17.026033,6.0509996 17.034315,5.7406506C17.205446,2.5418424,19.996967,-3.0120646E-08,23.416601,0z" Stretch="Uniform" Fill="#FFB2B2AE" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <TransformGroup.Children>
+                                                        <RotateTransform Angle="0" />
+                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                    </TransformGroup.Children>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                </Button>
+                                <Grid x:Name="CopiarKozak" Grid.Row="1" Background="White">
+                                    <telerik:RadCartesianChart x:Name="kozakChart">
+                                        <telerik:RadCartesianChart.VerticalAxis >
+                                            <telerik:LinearAxis LabelFormat="N0">
+                                                <telerik:LinearAxis.Title>
+                                                    <TextBlock Text="# smORF" FontSize="16" FontWeight="Bold"/>
+                                                </telerik:LinearAxis.Title>
+                                            </telerik:LinearAxis>
+                                        </telerik:RadCartesianChart.VerticalAxis>
+                                        <telerik:RadCartesianChart.HorizontalAxis>
+                                            <telerik:CategoricalAxis x:Name="horizontalAxisKozak" >
+                                                <telerik:CategoricalAxis.Title>
+                                                    <TextBlock Text="# of matching bases to Kozak" FontSize="16" FontWeight="Bold"/>
+                                                </telerik:CategoricalAxis.Title>
+                                            </telerik:CategoricalAxis>
+                                        </telerik:RadCartesianChart.HorizontalAxis>
+                                        <telerik:RadCartesianChart.Series>
+                                            <telerik:BarSeries x:Name="seriesKozak"/>
+                                        </telerik:RadCartesianChart.Series>
+                                    </telerik:RadCartesianChart>
+                                </Grid>
+                                <Button x:Name="logoButton" Grid.Column="0" Grid.Row="2" Content="Logo Kozak" Height="22" HorizontalAlignment="Right" Margin="0,0,15,5" VerticalAlignment="Bottom" Click="logoButton_Click"/>
+                            </Grid>
+
+                            <Grid x:Name="distributionGrid" Grid.Row="0" Grid.Column="1" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label FontWeight="Bold" FontSize="18" Content="PhyloCSF Distribution:" HorizontalAlignment="Center"  />
+                                <Button x:Name="CopiarScoreButtons" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="CopiarScoreButton_Click">
+                                    <Grid>
+                                        <Path Data="M48.549862,28.961L54.905247,28.961 68.569,42.623749 65.391953,45.802982 54.821945,56.373001 48.633259,56.373001 48.549862,56.291397 59.967552,44.870872 29.844999,44.870872 29.844999,40.379623 59.967552,40.379623z M23.416599,2.7189996C21.47262,2.7190001 19.896,4.2110781 19.896,6.0522499 19.896,7.8909721 21.47262,9.3850002 23.416599,9.3850002 25.360378,9.3850002 26.937,7.8909721 26.937,6.0522499 26.937,4.2110781 25.360378,2.7190001 23.416599,2.7189996z M23.416601,0C26.836042,-3.0120646E-08,29.627556,2.5418424,29.798687,5.7406506L29.806969,6.0509996 35.23,6.0509996 35.23,7.9879999 46.834,7.9879999 46.834,37.950001 41.696999,37.950001 41.696999,14.389 35.23,14.389 35.23,20.865 11.604,20.865 11.604,14.389 5.1370006,14.389 5.1370006,59.294994 41.696999,59.294994 41.696999,47.382 46.834,47.382 46.834,64.338997 0,64.338997 0,7.9879999 11.604,7.9879999 11.604,6.0509996 17.026033,6.0509996 17.034315,5.7406506C17.205446,2.5418424,19.996967,-3.0120646E-08,23.416601,0z" Stretch="Uniform" Fill="#FFB2B2AE" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <TransformGroup.Children>
+                                                        <RotateTransform Angle="0" />
+                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                    </TransformGroup.Children>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                </Button>
+                                <Grid x:Name="CopiaScore" Grid.Row="1" Background="White" >
+                                    <telerik:RadCartesianChart  x:Name="chartScore">
+                                        <telerik:RadCartesianChart.Grid>
+                                            <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                                <telerik:CartesianChartGrid.MajorYLineStyle>
+                                                    <Style TargetType="{x:Type Line}">
+                                                        <Setter Property="Stroke" Value="Gray"/>
+                                                        <Setter Property="StrokeThickness" Value=".5"/>
+                                                    </Style>
+                                                </telerik:CartesianChartGrid.MajorYLineStyle>
+                                                <telerik:CartesianChartGrid.MajorXLineStyle>
+                                                    <Style TargetType="{x:Type Line}">
+                                                        <Setter Property="Stroke" Value="Gray"/>
+                                                        <Setter Property="StrokeThickness" Value=".5"/>
+                                                    </Style>
+                                                </telerik:CartesianChartGrid.MajorXLineStyle>
+                                            </telerik:CartesianChartGrid>
+                                        </telerik:RadCartesianChart.Grid>
+                                        <telerik:RadCartesianChart.VerticalAxis>
+                                            <telerik:LinearAxis x:Name="verticalAxisScore" LabelFormat="N0">
+                                                <telerik:LinearAxis.Title>
+                                                    <TextBlock Text="# smORF" FontSize="16" FontWeight="Bold"/>
+                                                </telerik:LinearAxis.Title>
+                                            </telerik:LinearAxis>
+                                        </telerik:RadCartesianChart.VerticalAxis>
+                                        <telerik:RadCartesianChart.HorizontalAxis>
+                                            <telerik:LinearAxis x:Name="horizontalAxisScore" LabelFitMode="MultiLine" LabelFormat="0.00" >
+                                                <telerik:LinearAxis.Title>
+                                                    <TextBlock Text="Score" FontSize="16" FontWeight="Bold"/>
+                                                </telerik:LinearAxis.Title>
+                                            </telerik:LinearAxis>
+                                        </telerik:RadCartesianChart.HorizontalAxis>
+                                        <telerik:RadCartesianChart.Series>
+                                            <telerik:ScatterSplineSeries x:Name="serieScore"/>
+                                        </telerik:RadCartesianChart.Series>
+                                    </telerik:RadCartesianChart>
+                                </Grid>
+                                <Button x:Name="selectionScoreButton" Grid.Column="2" Grid.Row="2" Content="Cumulative Distribution" Height="22" HorizontalAlignment="Right" Margin="0,5,15,5" VerticalAlignment="Bottom" Click="selectionScoreButton_Click"/>
+                            </Grid>
+
+                            <Grid x:Name="lengthGrid" Grid.Row="0" Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label FontWeight="Bold" FontSize="18" Content="Length Distribution:" HorizontalAlignment="Center" />
+                                <Button x:Name="CopiarLengthButtons" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="CopiarLengthButtons_Click">
+                                    <Grid>
+                                        <Path Data="M48.549862,28.961L54.905247,28.961 68.569,42.623749 65.391953,45.802982 54.821945,56.373001 48.633259,56.373001 48.549862,56.291397 59.967552,44.870872 29.844999,44.870872 29.844999,40.379623 59.967552,40.379623z M23.416599,2.7189996C21.47262,2.7190001 19.896,4.2110781 19.896,6.0522499 19.896,7.8909721 21.47262,9.3850002 23.416599,9.3850002 25.360378,9.3850002 26.937,7.8909721 26.937,6.0522499 26.937,4.2110781 25.360378,2.7190001 23.416599,2.7189996z M23.416601,0C26.836042,-3.0120646E-08,29.627556,2.5418424,29.798687,5.7406506L29.806969,6.0509996 35.23,6.0509996 35.23,7.9879999 46.834,7.9879999 46.834,37.950001 41.696999,37.950001 41.696999,14.389 35.23,14.389 35.23,20.865 11.604,20.865 11.604,14.389 5.1370006,14.389 5.1370006,59.294994 41.696999,59.294994 41.696999,47.382 46.834,47.382 46.834,64.338997 0,64.338997 0,7.9879999 11.604,7.9879999 11.604,6.0509996 17.026033,6.0509996 17.034315,5.7406506C17.205446,2.5418424,19.996967,-3.0120646E-08,23.416601,0z" Stretch="Uniform" Fill="#FFB2B2AE" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <TransformGroup.Children>
+                                                        <RotateTransform Angle="0" />
+                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                    </TransformGroup.Children>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                </Button>
+                                <Grid x:Name="copiarLength" Grid.Row="1" Background="White" >
+                                    <telerik:RadCartesianChart >
+                                        <telerik:RadCartesianChart.Grid>
+                                            <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                                <telerik:CartesianChartGrid.MajorYLineStyle>
+                                                    <Style TargetType="{x:Type Line}">
+                                                        <Setter Property="Stroke" Value="Gray"/>
+                                                        <Setter Property="StrokeThickness" Value=".5"/>
+                                                    </Style>
+                                                </telerik:CartesianChartGrid.MajorYLineStyle>
+                                                <telerik:CartesianChartGrid.MajorXLineStyle>
+                                                    <Style TargetType="{x:Type Line}">
+                                                        <Setter Property="Stroke" Value="Gray"/>
+                                                        <Setter Property="StrokeThickness" Value=".5"/>
+                                                    </Style>
+                                                </telerik:CartesianChartGrid.MajorXLineStyle>
+                                            </telerik:CartesianChartGrid>
+                                        </telerik:RadCartesianChart.Grid>
+                                        <telerik:RadCartesianChart.VerticalAxis>
+                                            <telerik:LinearAxis x:Name="verticalAxisLength" LabelFormat="N0" >
+                                                <telerik:LinearAxis.Title>
+                                                    <TextBlock Text="# smORF" FontSize="16" FontWeight="Bold"/>
+                                                </telerik:LinearAxis.Title>
+                                            </telerik:LinearAxis>
+                                        </telerik:RadCartesianChart.VerticalAxis>
+                                        <telerik:RadCartesianChart.HorizontalAxis>
+                                            <telerik:LinearAxis x:Name="horizontalAxisLength" LabelFormat="N0">
+                                                <telerik:LinearAxis.Title>
+                                                    <TextBlock Text="Length of the smORF" FontSize="16" FontWeight="Bold"/>
+                                                </telerik:LinearAxis.Title>
+                                            </telerik:LinearAxis>
+                                        </telerik:RadCartesianChart.HorizontalAxis>
+                                        <telerik:RadCartesianChart.Series>
+                                            <telerik:ScatterSplineSeries x:Name="serieLength"/>
+                                        </telerik:RadCartesianChart.Series>
+
+                                    </telerik:RadCartesianChart>
+                                </Grid>
+
+                            </Grid>
+
+                            <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid x:Name="classificationGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label FontWeight="Bold" FontSize="18" Content="Classification:" HorizontalAlignment="Center" />
+                                    <Button x:Name="CopiarClassificationButton" VerticalAlignment="Top" HorizontalAlignment="Right" Click="CopiarClassificationButton_Click"  >
+                                        <Grid>
+                                            <Path Data="M48.549862,28.961L54.905247,28.961 68.569,42.623749 65.391953,45.802982 54.821945,56.373001 48.633259,56.373001 48.549862,56.291397 59.967552,44.870872 29.844999,44.870872 29.844999,40.379623 59.967552,40.379623z M23.416599,2.7189996C21.47262,2.7190001 19.896,4.2110781 19.896,6.0522499 19.896,7.8909721 21.47262,9.3850002 23.416599,9.3850002 25.360378,9.3850002 26.937,7.8909721 26.937,6.0522499 26.937,4.2110781 25.360378,2.7190001 23.416599,2.7189996z M23.416601,0C26.836042,-3.0120646E-08,29.627556,2.5418424,29.798687,5.7406506L29.806969,6.0509996 35.23,6.0509996 35.23,7.9879999 46.834,7.9879999 46.834,37.950001 41.696999,37.950001 41.696999,14.389 35.23,14.389 35.23,20.865 11.604,20.865 11.604,14.389 5.1370006,14.389 5.1370006,59.294994 41.696999,59.294994 41.696999,47.382 46.834,47.382 46.834,64.338997 0,64.338997 0,7.9879999 11.604,7.9879999 11.604,6.0509996 17.026033,6.0509996 17.034315,5.7406506C17.205446,2.5418424,19.996967,-3.0120646E-08,23.416601,0z" Stretch="Uniform" Fill="#FFB2B2AE" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                                <Path.RenderTransform>
+                                                    <TransformGroup>
+                                                        <TransformGroup.Children>
+                                                            <RotateTransform Angle="0" />
+                                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                        </TransformGroup.Children>
+                                                    </TransformGroup>
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Grid>
+                                    </Button>
+                                    <Grid Grid.Row="1" x:Name="CopiarClassification" Background="White">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <telerik:RadPieChart   x:Name="classificationChart" Palette="VisualStudio2013">
+                                            <telerik:RadPieChart.SmartLabelsStrategy>
+                                                <telerik:PieChartSmartLabelsStrategy DisplayMode="SpiderAlignedOutwards"/>
+                                            </telerik:RadPieChart.SmartLabelsStrategy>
+                                            <telerik:DoughnutSeries x:Name="classificationSeries" ShowLabels="False">
+                                                <telerik:DoughnutSeries.LegendSettings>
+                                                    <telerik:DataPointLegendSettings />
+                                                </telerik:DoughnutSeries.LegendSettings>
+                                            </telerik:DoughnutSeries>
+                                        </telerik:RadPieChart>
+                                        <telerik:RadLegend Grid.Row="2" Items="{Binding LegendItems, ElementName=classificationChart}" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+
+                                    </Grid>
+
+                                </Grid>
+                                <Grid x:Name="coveredGrid" Grid.Column="1" Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label FontWeight="Bold" FontSize="18" Content="Covered smORFs:"  HorizontalAlignment="Center" Grid.ColumnSpan="2" />
+                                    <telerik:RadPieChart Grid.Row="1" Grid.Column="0" x:Name="coverChart" Palette="VisualStudio2013">
+                                        <telerik:DoughnutSeries x:Name="coverSeries" ShowLabels="False">
+                                            <telerik:DoughnutSeries.LegendSettings>
+                                                <telerik:DataPointLegendSettings />
+                                            </telerik:DoughnutSeries.LegendSettings>
+                                        </telerik:DoughnutSeries>
+                                    </telerik:RadPieChart>
+                                    <telerik:RadLegend Grid.Row="2" Grid.Column="0" Items="{Binding LegendItems, ElementName=coverChart}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </Grid>
+                                <Grid x:Name="hitsGrid" Grid.Column="2" Grid.Row="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label FontWeight="Bold" FontSize="18" Content="Hit smORFs:"  HorizontalAlignment="Center" Grid.ColumnSpan="2" />
+                                    <telerik:RadPieChart Grid.Row="1" Grid.Column="0" x:Name="hitChart" Palette="VisualStudio2013">
+                                        <telerik:DoughnutSeries x:Name="hitsSeries" ShowLabels="False">
+                                            <telerik:DoughnutSeries.LegendSettings>
+                                                <telerik:DataPointLegendSettings />
+                                            </telerik:DoughnutSeries.LegendSettings>
+                                        </telerik:DoughnutSeries>
+                                    </telerik:RadPieChart>
+                                    <telerik:RadLegend Grid.Row="2" Grid.Column="0" Items="{Binding LegendItems, ElementName=hitChart}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                                <Button x:Name="addConditionButton" Grid.Column="2" Grid.Row="1" Content="Load Condition SAM File" Height="22" HorizontalAlignment="Right" Margin="0,0,15,5" Click="addConditionButton_Click" VerticalAlignment="Bottom"/>
+                            </Grid>
+
+                            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+
+
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                    <Grid Height="Auto" VerticalAlignment="Top">
+                                        <WrapPanel x:Name="heatMapsPanel" Background="White"/>
+                                    </Grid>
+                                </ScrollViewer>
+                                <Button x:Name="CopiarDistributionButton" VerticalAlignment="Top" HorizontalAlignment="Right" Click="CopiarDistributionButton_Click">
+                                    <Grid>
+                                        <Path Data="M48.549862,28.961L54.905247,28.961 68.569,42.623749 65.391953,45.802982 54.821945,56.373001 48.633259,56.373001 48.549862,56.291397 59.967552,44.870872 29.844999,44.870872 29.844999,40.379623 59.967552,40.379623z M23.416599,2.7189996C21.47262,2.7190001 19.896,4.2110781 19.896,6.0522499 19.896,7.8909721 21.47262,9.3850002 23.416599,9.3850002 25.360378,9.3850002 26.937,7.8909721 26.937,6.0522499 26.937,4.2110781 25.360378,2.7190001 23.416599,2.7189996z M23.416601,0C26.836042,-3.0120646E-08,29.627556,2.5418424,29.798687,5.7406506L29.806969,6.0509996 35.23,6.0509996 35.23,7.9879999 46.834,7.9879999 46.834,37.950001 41.696999,37.950001 41.696999,14.389 35.23,14.389 35.23,20.865 11.604,20.865 11.604,14.389 5.1370006,14.389 5.1370006,59.294994 41.696999,59.294994 41.696999,47.382 46.834,47.382 46.834,64.338997 0,64.338997 0,7.9879999 11.604,7.9879999 11.604,6.0509996 17.026033,6.0509996 17.034315,5.7406506C17.205446,2.5418424,19.996967,-3.0120646E-08,23.416601,0z" Stretch="Uniform" Fill="#FFB2B2AE" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <TransformGroup.Children>
+                                                        <RotateTransform Angle="0" />
+                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                    </TransformGroup.Children>
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </telerik:RadTabItem>
+            <telerik:RadTabItem Header="Report">
+                <Grid>
+                    <telerik:RadBusyIndicator x:Name="busyIndicator">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <telerik:RadGridView x:Name="GridSmorf" IsReadOnly="True" GroupRenderMode="Flat" RowIndicatorVisibility="Collapsed" ShowColumnFooters="True" ShowGroupFooters="True" AutoGenerateColumns="False" telerik:StyleManager.Theme="Windows8" Filtered="GridSmorf_Filtered" SelectionChanged="GridSmorf_SelectionChanged">
+                                        <telerik:RadGridView.Columns>
+                                            <telerik:GridViewDataColumn Header="ID"
+											DataMemberBinding="{Binding Id}">
+                                                <telerik:GridViewDataColumn.AggregateFunctions>
+                                                    <telerik:CountFunction Caption="Count: " />
+                                                </telerik:GridViewDataColumn.AggregateFunctions>
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Chromosome"
+											DataMemberBinding="{Binding Chromosome}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Start Position"
+											DataMemberBinding="{Binding StartPosition}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="End Position"
+											DataMemberBinding="{Binding EndPosition}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="smORF Length (bp)"
+											DataMemberBinding="{Binding Length}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Peptide Length (aa)"
+											DataMemberBinding="{Binding LengthAsProtein}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="GB Coordinates"
+											DataMemberBinding="{Binding GBCoordinates}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Strand"
+											DataMemberBinding="{Binding Strand}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Identity"
+											DataMemberBinding="{Binding similarity,StringFormat='\{0\}%'}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Identity S"
+											DataMemberBinding="{Binding SimilarityStringSecond}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Identity T"
+											DataMemberBinding="{Binding SimilarityStringThird}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Start Codon"
+											DataMemberBinding="{Binding StartCodon}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Stop Codon"
+											DataMemberBinding="{Binding StopCodon}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="File Source"
+											DataMemberBinding="{Binding FileSource}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn x:Name="specie1Column" Header="Species 1 Sequence"
+											DataMemberBinding="{Binding Specie1Content}">
+                                                <telerik:GridViewDataColumn.CellStyle>
+                                                    <Style TargetType="{x:Type telerik:GridViewCell}">
+                                                        <Setter Property="FontFamily" Value="Courier New"/>
+                                                    </Style>
+                                                </telerik:GridViewDataColumn.CellStyle>
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn x:Name="specie2Column" Header="Species 2 Sequence"
+											DataMemberBinding="{Binding Specie2Content}">
+                                                <telerik:GridViewDataColumn.CellStyle>
+                                                    <Style TargetType="{x:Type telerik:GridViewCell}">
+                                                        <Setter Property="FontFamily" Value="Courier New"/>
+                                                    </Style>
+                                                </telerik:GridViewDataColumn.CellStyle>
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn x:Name="specie3Column" Header="Species 3 Sequence"
+											DataMemberBinding="{Binding Specie3Content}">
+                                                <telerik:GridViewDataColumn.CellStyle>
+                                                    <Style TargetType="{x:Type telerik:GridViewCell}">
+                                                        <Setter Property="FontFamily" Value="Courier New"/>
+                                                    </Style>
+                                                </telerik:GridViewDataColumn.CellStyle>
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Protein"
+											DataMemberBinding="{Binding Proteins}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="GC Content"
+											DataMemberBinding="{Binding GCcontent, StringFormat='{}{0:P2}'}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Conservation"
+											DataMemberBinding="{Binding ConservationString}">
+                                            </telerik:GridViewDataColumn>
+                                            
+                                            <telerik:GridViewDataColumn Header="smORF phastCons (%)"
+											DataMemberBinding="{Binding Conservation, StringFormat='{}{0:P4}'}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Conservation 5' (%)"
+											DataMemberBinding="{Binding Conservation5UTR, StringFormat='{}{0:P4}'}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Conservation 3' (%)"
+											DataMemberBinding="{Binding Conservation3UTR, StringFormat='{}{0:P4}'}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="PhyloCSF Score"
+											DataMemberBinding="{Binding CodingScore}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="# of matching bases to Kozak"
+											DataMemberBinding="{Binding Kozak}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Kozak Seq"
+											DataMemberBinding="{Binding KozakSequence}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Comment"
+											DataMemberBinding="{Binding Comment}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Intergenic"
+											DataMemberBinding="{Binding IsIntergenic}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="# Matching Genes"
+											DataMemberBinding="{Binding GenesNumber}">
+                                            </telerik:GridViewDataColumn>
+                                            
+                                            <telerik:GridViewDataColumn Header="# Matching transcripts"
+											DataMemberBinding="{Binding TranscriptNumber}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="5' UTR"
+											DataMemberBinding="{Binding FiveUTRs}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="3' UTR"
+											DataMemberBinding="{Binding ThreeUTRs}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Exon"
+											DataMemberBinding="{Binding Exons}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Intron"
+											DataMemberBinding="{Binding Introns}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Ambiguous"
+											DataMemberBinding="{Binding Ambiguous}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Exons in frame"
+											DataMemberBinding="{Binding ExonInFrame}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="RNA Matchs"
+											DataMemberBinding="{Binding RNAMatch}">
+                                            </telerik:GridViewDataColumn>
+
+                                            <telerik:GridViewDataColumn Header="Proteomic Matchs"
+											DataMemberBinding="{Binding ProteomicMatch}">
+                                            </telerik:GridViewDataColumn>
+
+                                        </telerik:RadGridView.Columns>
+                                    </telerik:RadGridView>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Margin="5,0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0" Fill="Red" Margin="8" Height="10" Width="20"/>
+                                        <Label Grid.Column="1" Content="5'UTR" FontWeight="Bold" />
+                                    </Grid>
+                                    <Grid Grid.Column="1" Margin="5,0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0" Fill="Yellow" Margin="8" Height="10" Width="20"/>
+                                        <Label Grid.Column="1" Content="3'UTR" FontWeight="Bold" />
+                                    </Grid>
+                                    <Grid Grid.Column="2" Margin="5,0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0" Fill="Purple" Margin="8" Height="10" Width="20"/>
+                                        <Label Grid.Column="1" Content="Exon" FontWeight="Bold" />
+                                    </Grid>
+                                    <Grid Grid.Column="3" Margin="5,0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0" Fill="Green" Margin="8" Height="10" Width="20"/>
+                                        <Label Grid.Column="1" Content="Intron" FontWeight="Bold" />
+                                    </Grid>
+                                    <Grid Grid.Column="4" Margin="5,0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Grid.Column="0" Fill="Gray" Margin="8" Height="10" Width="20"/>
+                                        <Label Grid.Column="1" Content="Intergenic" FontWeight="Bold" />
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Background="{x:Null}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" Background="{x:Null}" >
+                                                <StackPanel x:Name="contenedorControles" Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Left"></StackPanel>
+                                            </ScrollViewer>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <!--<RowDefinition Height="50" />-->
+                                                    <!--<RowDefinition Height="50" />-->
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition Height="30" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Label Content="smORF as Protein" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
+                                                <Label Content="smORF" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
+                                                <Label Content="PhyloCSF Score" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
+                                                <Label Content="Conservation Check" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
+                                                <Label Content="Second Species" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
+                                                <Label Content="Third Species" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold" />
+                                                <StackPanel x:Name="StackPanelGenes" Grid.Row="6">
+
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </ScrollViewer>
+
+
+                                </Grid>
+                            </Grid>
+                            <Rectangle Fill="#FF25A0DA" Grid.Column="1" Height="30" VerticalAlignment="Top" />
+                            <Grid Grid.Column="1" Margin="10,40,10,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Margin="3" Background="White" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Id:" />
+                                    <TextBlock x:Name="IdLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="1" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="File Source:"/>
+                                    <TextBlock x:Name="fileSourceLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="2" Margin="3" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Chromosome:"/>
+                                    <TextBlock x:Name="chromosomeLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="3" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Strand:"/>
+                                    <TextBlock x:Name="strandLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="4" Margin="3" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Position:"/>
+                                    <TextBlock x:Name="positionLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="5" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Length:"/>
+                                    <TextBlock x:Name="lengthLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid Grid.Row="6" Margin="3" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Conservation Check:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="conservationCheckLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="7" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Exon Overlap:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="exonOverlapCheckLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="8" Margin="3" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Kozak Score:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="kozakScoreCheckLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="9" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="GC content:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="gcContentCheckLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="10" Margin="3" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Identity:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="similarityLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="11" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Coding Codons:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="codingCodonsLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="12" Margin="3" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Conservation Sequences:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="conservationSequencesLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="13" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Previous:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="previosLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="14" Margin="3" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Posterior:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="posteriorLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="15" Margin="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Annotation:" TextWrapping="Wrap"/>
+                                    <TextBlock x:Name="annotationLabel" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Row="16">
+                                    <StackPanel>
+                                        <telerik:RadButton  x:Name="ShowSequencesButton" Content="Export" Margin="15"  IsEnabled="True" Click="ShowSequencesButton_Click" VerticalAlignment="Top"/>
+                                        <telerik:RadButton  x:Name="ExportGridButton" Content="Export Grid" Margin="15"  IsEnabled="True" Click="ExportGridButton_Click" VerticalAlignment="Top"/>
+                                        <telerik:RadButton  x:Name="MakeTrackButton" Content="Export Track" Margin="15"  IsEnabled="True" VerticalAlignment="Top" Click="MakeTrackButton_Click"/>
+                                        <telerik:RadButton  x:Name="AddCommentButton" Content="Add Comment" Margin="15"  IsEnabled="True" VerticalAlignment="Top" Click="AddCommentButton_Click"/>
+                                        <TextBox x:Name="CommentTextBox" Text="" Margin="15,0" Visibility="Collapsed" Height="110" />
+                                        <telerik:RadButton  x:Name="SaveCommentButton" Content="Save Comment" Margin="15"  IsEnabled="True" VerticalAlignment="Top" Click="SaveCommentButton_Click" Visibility="Collapsed"/>
+                                        <telerik:RadButton  x:Name="ChangeIdButton" Content="Change Id" Margin="15"  IsEnabled="True" VerticalAlignment="Top" Click="ChangeIdButton_Click"/>
+                                        <telerik:RadButton  x:Name="ImportProteomicDataIdButton" Content="Import Proteomic Data" Margin="15"  IsEnabled="True" VerticalAlignment="Top" Click="ImportProteomicDataIdButton_Click"/>
+                                        <telerik:RadButton  x:Name="CircusPlotButton" Content="Circos Plot" Margin="15"  IsEnabled="True" VerticalAlignment="Top" Click="CircusPlotButton_Click"/>
+                                    </StackPanel>
+
+                                    <!--<telerik:RadButton  x:Name="ExportSequencesButton" Content="Export CSV" Margin="15"  IsEnabled="True" Click="ExportSequencesButton_Click" VerticalAlignment="Top"/>-->
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </telerik:RadBusyIndicator>
+                </Grid>
+            </telerik:RadTabItem>
+        </telerik:RadTabControl>
+    </Grid>
+</Page>

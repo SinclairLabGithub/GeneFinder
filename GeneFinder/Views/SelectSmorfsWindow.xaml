@@ -1,0 +1,108 @@
+﻿<Window x:Class="GeneFinder.Views.SelectSmorfsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        Title="Select Smorfs" Height="500" Width="500" Icon="/GeneFinder;component/GFicono1.ico" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" Topmost="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <telerik:RadGridView x:Name="GridSmorf" IsReadOnly="True" GroupRenderMode="Flat" RowIndicatorVisibility="Collapsed" ShowColumnFooters="True" ShowGroupFooters="True" AutoGenerateColumns="False" telerik:StyleManager.Theme="Windows8">
+                <telerik:RadGridView.Columns>
+                    <telerik:GridViewDataColumn Header="ID"
+											DataMemberBinding="{Binding Id}">
+                        <telerik:GridViewDataColumn.AggregateFunctions>
+                            <telerik:CountFunction Caption="Count: " />
+                        </telerik:GridViewDataColumn.AggregateFunctions>
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Chromosome"
+											DataMemberBinding="{Binding Chromosome}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Start Position"
+											DataMemberBinding="{Binding Position}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="End Position"
+											DataMemberBinding="{Binding EndPosition}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Length"
+											DataMemberBinding="{Binding Length}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Identity"
+											DataMemberBinding="{Binding similarity,StringFormat='\{0\}%'}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Start Codon"
+											DataMemberBinding="{Binding StarCodon}" >
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Stop Codon"
+											DataMemberBinding="{Binding StopCodon}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="File Source"
+											DataMemberBinding="{Binding MafSource}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Species 1 Sequence"
+											DataMemberBinding="{Binding Sequence}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Species 2 Sequence"
+											DataMemberBinding="{Binding SequenceSecondSpecies}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Species 3 Sequence"
+											DataMemberBinding="{Binding SequenceThirdSpecies}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Protein"
+											DataMemberBinding="{Binding SequenceAsProtein}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Strand"
+											DataMemberBinding="{Binding Strand}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Annotation"
+											DataMemberBinding="{Binding Annotation}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Conservation"
+											DataMemberBinding="{Binding ConservationAverage}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="PhyloCSF Score"
+											DataMemberBinding="{Binding CodingScore}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Kozak Score"
+											DataMemberBinding="{Binding KozakScore}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Kozak Sequence"
+											DataMemberBinding="{Binding kozakSequence}">
+                    </telerik:GridViewDataColumn>
+
+                    <telerik:GridViewDataColumn Header="Number of Aligments"
+											DataMemberBinding="{Binding Coord.Count}">
+                    </telerik:GridViewDataColumn>
+
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <telerik:RadButton  x:Name="ExportGridButton" Content="Export Grid" Margin="5"  IsEnabled="True" Click="ExportGridButton_Click" VerticalAlignment="Center" Padding="5"/>
+                <telerik:RadButton  x:Name="acceptButton" Content="Apply Filter" Margin="5"  IsEnabled="True" VerticalAlignment="Center" Padding="5" Width="76" Click="acceptButton_Click"/>
+                <telerik:RadButton  x:Name="cancelButton" Content="Cancel" Margin="5"  IsEnabled="True" VerticalAlignment="Center" Padding="5" Width="76" Click="cancelButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

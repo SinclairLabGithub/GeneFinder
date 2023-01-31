@@ -1,0 +1,372 @@
+﻿<Page x:Class="GeneFinder.Views.ClassifierPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      xmlns:System="clr-namespace:System;assembly=mscorlib" 
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="800"
+	Title="ClassifierPage" Loaded="Page_Loaded">
+
+    <Grid>
+        <telerik:RadBusyIndicator x:Name="busyIndicator">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" x:Name="graphsClassifiers" Visibility="Hidden">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="5" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" FontSize="18" Content="Score Distribution:" HorizontalAlignment="Center"/>
+                            <telerik:RadCartesianChart Grid.Row="1" x:Name="chartScore">
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:LinearAxis/>
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:LinearAxis x:Name="horizontalAxisScore" LabelFitMode="MultiLine"/>
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:RadCartesianChart.Series>
+                                    <telerik:ScatterSplineSeries x:Name="serieScore"/>
+                                </telerik:RadCartesianChart.Series>
+                            </telerik:RadCartesianChart>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" FontSize="18" Content="Classification:" HorizontalAlignment="Center"/>
+                            <telerik:RadPieChart Grid.Row="1"  x:Name="classificationChart" Palette="VisualStudio2013">
+                                <telerik:RadPieChart.SmartLabelsStrategy>
+                                    <telerik:PieChartSmartLabelsStrategy DisplayMode="SpiderAlignedOutwards"/>
+                                </telerik:RadPieChart.SmartLabelsStrategy>
+                                <telerik:DoughnutSeries x:Name="classificationSeries" ShowLabels="False">
+                                    <telerik:DoughnutSeries.LegendSettings>
+                                        <telerik:DataPointLegendSettings />
+                                    </telerik:DoughnutSeries.LegendSettings>
+                                </telerik:DoughnutSeries>
+                            </telerik:RadPieChart>
+                            <telerik:RadLegend Grid.Row="2" Items="{Binding LegendItems, ElementName=classificationChart}" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid x:Name="chartPossibleSmurfs" Grid.Row="0" Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="5" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" FontSize="18" Content="Identity Distribution:" HorizontalAlignment="Center" FontFamily="Courier New"/>
+                            <telerik:RadCartesianChart Grid.Row="1">
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:LinearAxis Title="# Sequences"/>
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:LinearAxis x:Name="horizontalAxisSimilarity" Title="Similarity Percentage" Maximum="100"/>
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:RadCartesianChart.Series>
+                                    <telerik:ScatterSplineSeries x:Name="serieSimilarity"/>
+                                </telerik:RadCartesianChart.Series>
+
+                            </telerik:RadCartesianChart>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="1" Margin="5" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" FontSize="18" Content="Length Distribution:" HorizontalAlignment="Center" FontFamily="Courier New"/>
+                            <telerik:RadCartesianChart Grid.Row="1">
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid MajorXLineDashArray="5, 5" MajorYLineDashArray="5, 5" MajorLinesVisibility="XY">
+                                        <telerik:CartesianChartGrid.MajorYLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorYLineStyle>
+                                        <telerik:CartesianChartGrid.MajorXLineStyle>
+                                            <Style TargetType="{x:Type Line}">
+                                                <Setter Property="Stroke" Value="Gray"/>
+                                            </Style>
+                                        </telerik:CartesianChartGrid.MajorXLineStyle>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:LinearAxis Title="# Sequences"/>
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:LinearAxis x:Name="horizontalAxisLength" Title="Length in bp"/>
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:RadCartesianChart.Series>
+                                    <telerik:ScatterSplineSeries x:Name="serieLength"/>
+                                </telerik:RadCartesianChart.Series>
+
+                            </telerik:RadCartesianChart>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" FontSize="18" Content="Start Codon:" HorizontalAlignment="Center" FontFamily="Courier New"/>
+                            <telerik:RadPieChart Grid.Row="1" Palette="VisualStudio2013">
+                                <telerik:RadPieChart.SmartLabelsStrategy>
+                                    <telerik:PieChartSmartLabelsStrategy DisplayMode="SpiderAlignedOutwards"/>
+                                </telerik:RadPieChart.SmartLabelsStrategy>
+                                <telerik:DoughnutSeries x:Name="startCodonSeries"/>
+                            </telerik:RadPieChart>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label FontWeight="Bold" FontSize="18" Content="Stop Codon:" HorizontalAlignment="Center" FontFamily="Courier New"/>
+                            <telerik:RadPieChart Grid.Row="1" Palette="VisualStudio2013">
+                                <telerik:RadPieChart.SmartLabelsStrategy>
+                                    <telerik:PieChartSmartLabelsStrategy DisplayMode="SpiderAlignedOutwards"/>
+                                </telerik:RadPieChart.SmartLabelsStrategy>
+                                <telerik:DoughnutSeries x:Name="stopCodonSeries"/>
+                            </telerik:RadPieChart>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.ColumnSpan="2" Height="Auto" HorizontalAlignment="Center" Margin="5">
+                            <StackPanel Orientation="Horizontal">
+                                <Label FontWeight="Bold" FontSize="16" Content="# Sequences Found:" HorizontalAlignment="Center" FontFamily="Courier New"/>
+                                <Label x:Name="SequencesFoundNumber" FontSize="16" Content="0" HorizontalAlignment="Center" FontFamily="Courier New"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label FontWeight="Bold" FontSize="14" Content="Sequences Count: " VerticalAlignment="Center"/>
+                                <TextBlock x:Name="sequencesCounttaxtblock" Text="0" FontSize="12" VerticalAlignment="Center"/>
+                            </StackPanel>-->
+                            <StackPanel x:Name="sequencesEvaluatedCountStack" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="Collapsed">
+                                <Label FontWeight="Bold" FontSize="14" Content="Evaluated: " VerticalAlignment="Center"/>
+                                <TextBlock x:Name="sequencesEvaluatedCounttaxtblock" Text="0" FontSize="12" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Width="300">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,65,0,0" >
+                                <Label Grid.Column="0" Content="t  " HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="d" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                            </Grid>
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,110,0,0" >
+                                <Label Grid.Column="0" Content="t  " HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="a" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                            </Grid>
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,125,0,0" >
+                                <Label Grid.Column="0" Content="t  " HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="c" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                            </Grid>
+                            <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="145,125,0,0" >
+                                <Label Grid.Column="0" Content="t  " HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="b" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                            </Grid>
+                            <Ellipse Width="40" Height="40" Fill="#FF23245A" Stroke="#FF23245A" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,10,0,0" />
+                            <Grid Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,90,0,0" >
+                                <Ellipse  Fill="#FF28578C" Stroke="#FF28578C" />
+                                <Label Content="d" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,170,0,0" >
+                                <Ellipse  Fill="#265787" Stroke="#265787" />
+                                <Label Content="a" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,170,0,0" >
+                                <Ellipse  Fill="#7596cd" Stroke="#7596cd" />
+                                <Label Content="b" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Grid Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="230,170,0,0" >
+                                <Ellipse  Fill="#7596cd" Stroke="#7596cd" />
+                                <Label Content="c" Foreground="White" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"/>
+                            </Grid>
+                            <Line Stroke="#FFEB5D31" X1="150" X2="150" Y1="50" Y2="70" StrokeThickness="3" />
+                            <Line Stroke="#FFEB5D31" X1="48.5" X2="201.5" Y1="70" Y2="70" StrokeThickness="3" />
+                            <Line Stroke="#FFEB5D31" X1="50" X2="50" Y1="68.5" Y2="170" StrokeThickness="3" />
+                            <Line Stroke="#FFEB5D31" X1="200" X2="200" Y1="68.5" Y2="90" StrokeThickness="3" />
+                            <Line Stroke="#FFEB5D31" X1="200" X2="200" Y1="130" Y2="150" StrokeThickness="3" />
+                            <Line Stroke="#FFEB5D31" X1="148.5" X2="251.5" Y1="150" Y2="150" StrokeThickness="3" />
+                            <Line Stroke="#FFEB5D31" X1="150" X2="150" Y1="150" Y2="170" StrokeThickness="3" />
+                            <Line Stroke="#FFEB5D31" X1="250" X2="250" Y1="150" Y2="170" StrokeThickness="3" />
+                        </Grid>
+
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="18" Content="Species:" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Courier New"/>
+                        <Grid Grid.Column="1" Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="0,0,0,4" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="a :" HorizontalAlignment="Center"/>
+                                <TextBox Grid.Column="1" x:Name="textBoxSpecie1" IsEnabled="False"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,4" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="b :" HorizontalAlignment="Center"/>
+                                <TextBox Grid.Column="1" x:Name="textBoxSpecie2" IsEnabled="False"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,4" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="c :" HorizontalAlignment="Center"/>
+                                <TextBox Grid.Column="1" x:Name="textBoxSpecie3" IsEnabled="False"/>
+                            </Grid>
+                        </Grid>
+                        <Label Grid.Column="0" Grid.Row="1" FontWeight="Bold" FontSize="18" Content="Branch Lenghts:" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Courier New"/>
+                        <Grid Grid.Column="1" Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="0,0,0,4" Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="t  :" HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="a" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                                <TextBox Grid.Column="1" x:Name="textBoxBranchA"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,4" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="t  :" HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="b" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                                <TextBox Grid.Column="1" x:Name="textBoxBranchB"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,4" Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="t  :" HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="c" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                                <TextBox Grid.Column="1" x:Name="textBoxBranchC"/>
+                            </Grid>
+                            <Grid Margin="0,0,0,4" Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content="t  :" HorizontalAlignment="Center"/>
+                                <Label Grid.Column="0" Content="d" HorizontalAlignment="Center" FontSize="10" Margin="3,6,0,0"/>
+                                <TextBox Grid.Column="1" x:Name="textBoxBranchD"/>
+                            </Grid>
+                        </Grid>
+                        <Label Grid.Column="0" Grid.Row="2" FontWeight="Bold" FontSize="18" Content="Coding Cutoff:" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Courier New"/>
+                        <Grid Grid.Column="1" Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <telerik:RadNumericUpDown Grid.Column="1" x:Name="textBoxCodingCutoff" Height="29" Value="0.2" Maximum="50" Minimum="-50" NumberDecimalDigits="3" LargeChange="1" SmallChange="0.01" ValueChanged="textBoxCodingCutoff_ValueChanged"/>
+                        </Grid>
+                    </Grid>
+                    <Grid x:Name="buttonsGrid" Grid.Column="2" Margin="0,0,0,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <!--<telerik:RadButton Grid.Row="0" x:Name="OpenFastaButton" Content="Open File" Margin="15" Click="OpenFastaButton_Click"  />-->
+                        <telerik:RadButton Grid.Row="3" Content="Classify Sequences" x:Name="classifySequencesButton" Margin="15" Click="classifySequencesButton_Click" IsEnabled="True"/>
+                        <telerik:RadButton Grid.Row="2" x:Name="ShowSequencesButton" Content="Show Sequences" Margin="15"  IsEnabled="True" Click="ShowSequencesButton_Click" Visibility="Visible"/>
+                        <telerik:RadButton Grid.Row="1" Content="Export to Fasta" x:Name="exportToFastaButton" Margin="15" Click="exportToFastaButton_Click" IsEnabled="True"/>
+                        <!--<telerik:RadButton Grid.Row="3" x:Name="ToRealignButton" Content="To Realign" Margin="15" Click="ToRealignButton_Click"  IsEnabled="False" Visibility="Collapsed"/>-->
+                    </Grid>
+                </Grid>
+            </Grid>
+        </telerik:RadBusyIndicator>
+    </Grid>
+</Page>

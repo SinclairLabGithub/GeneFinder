@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="GeneFinder.Views.HeatMapController"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      xmlns:System="clr-namespace:System;assembly=mscorlib" 
+      mc:Ignorable="d" 
+             d:DesignHeight="242.5" d:DesignWidth="203" Loaded="UserControl_Loaded" MinWidth="200" MinHeight="200" MaxWidth="250" MaxHeight="250" Cursor="Hand" MouseLeftButtonUp="UserControl_MouseLeftButtonUp">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="titleLabel" Content="Title" HorizontalAlignment="Center"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="maximumLabel" Content="0" Grid.Row="1" Grid.Column="0"/>
+            <telerik:RadHeatMap Grid.Row="0" Margin="2" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="{x:Null}" Height="90">
+                <telerik:RadHeatMap.Definition>
+                    <telerik:CategoricalDefinition x:Name="mapaData"
+                    RowGroupMemberPath="Chr" 
+                    ColumnGroupMemberPath="Position"
+                    ValuePath="Value">
+                    </telerik:CategoricalDefinition>
+                </telerik:RadHeatMap.Definition>
+                <telerik:RadHeatMap.ColumnHeaderSettings>
+                    <telerik:HeatMapColumnHeaderSettings 
+                                                      />
+                </telerik:RadHeatMap.ColumnHeaderSettings>
+            </telerik:RadHeatMap>
+
+            <telerik:RadCartesianChart Grid.Column="1" Grid.Row="1" x:Name="speciesChart"  MinHeight="0" MinWidth="0" Height="90" >
+                <telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:LinearAxis x:Name="ejeVertical" IsStepRecalculationOnZoomEnabled="False" RangeExtendDirection="None" ShowLabels="False"/>
+                </telerik:RadCartesianChart.VerticalAxis>
+                <telerik:RadCartesianChart.HorizontalAxis >
+                    <telerik:LinearAxis x:Name="ejeHorizontal" ShowLabels="False"/>
+                </telerik:RadCartesianChart.HorizontalAxis>
+                <telerik:RadCartesianChart.Series>
+                    <telerik:ScatterSplineSeries x:Name="sequencesDistribution"/>
+                </telerik:RadCartesianChart.Series>
+            </telerik:RadCartesianChart>
+            <Label x:Name="startPositionLabel" Content="0" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/>
+            <Label x:Name="endPositionLabel" Content="0" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="Collapsed"/>
+        </Grid>
+
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,114 @@
+﻿<Page x:Class="GeneFinder.Views.WelcomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600"
+	Title="WelcomePage" MinWidth="420">
+
+    <Grid>
+        <telerik:RadBusyIndicator x:Name="busyIndicator">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="10">
+                    <Image Source="/GeneFinder;component/WelcomeImage.png" Width="100" Height="100" HorizontalAlignment="Left" />
+                    <Rectangle Fill="Black" Height="4" Margin="85,80,5,0" Stroke="Black" VerticalAlignment="Top" RadiusX="2" RadiusY="2" StrokeThickness="2"/>
+                    <Label Content="GeneFinder" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Calibri" FontSize="60" Margin="0,0,7,0"/>
+                </Grid>
+                <Grid Margin="10" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,20,0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="#FF254061" Width="120" Height="70">
+                            <TextBlock TextAlignment="Center" Foreground="#FFFEFEFE" VerticalAlignment="Center" FontFamily="Calibri" FontSize="16" >
+                        Import <LineBreak /> New Sequences
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" Background="#FFDCE6F2" Width="120" Height="70" Margin="0,5,0,0" Cursor="Hand" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                            <Grid>
+                                <Grid Width="48" Height="48" Visibility="Visible">
+                                    <Path Data="M50.5,4.7500001C25.232973,4.75 4.75,25.232973 4.7500001,50.5 4.75,75.767029 25.232973,96.25 50.5,96.25 75.767029,96.25 96.25,75.767029 96.25,50.5 96.25,25.232973 75.767029,4.75 50.5,4.7500001z M50.5,0C78.390381,0 101,22.609621 101,50.5 101,78.390381 78.390381,101 50.5,101 22.609621,101 0,78.390381 0,50.5 0,22.609621 22.609621,0 50.5,0z" Stretch="Fill" Fill="#FF000000" Name="Stroke" Visibility="Visible" />
+                                </Grid>
+                                <Path Data="M7.5239427,4.4000008C5.7329547,4.4010003 4.3949659,5.1760018 3.4339731,6.017997 2.7359786,6.6320031 2.270982,7.2750008 2.0619841,7.5959995L2.0619841,20.596998C3.2619753,19.530996,5.0979593,18.455999,7.5199411,18.455999L7.5239427,18.455999C9.9889195,18.455999,11.865908,19.566,13.088898,20.645002L13.088898,7.6070011C13.035897,7.5269992 12.964898,7.4270008 12.8789,7.3120029 12.631901,6.9869988 12.255904,6.543998 11.764907,6.108001 10.775916,5.2310021 9.3709242,4.4000008 7.5239427,4.4000008z M7.5239427,2.3390038C10.018922,2.339004 11.912908,3.4770045 13.134895,4.5680001 13.517895,4.9090035 13.841891,5.2480004 14.105888,5.5540001 14.360887,5.2499993 14.672885,4.9140008 15.043881,4.5760033 16.074875,3.6320033 17.610861,2.6590037 19.609846,2.4059975 19.222849,3.1230006 18.965851,3.8909984 18.833851,4.6770012 17.897858,4.9759972 17.132864,5.4820015 16.522869,6.017997 15.823877,6.6330025 15.35888,7.2760003 15.149883,7.5969989L15.149883,20.597997C16.350872,19.531996 18.187857,18.454 20.612837,18.455999 23.076819,18.455999 24.954806,19.565 26.177796,20.645002L26.177796,13.272002C26.873789,13.263999,27.567784,13.159003,28.239779,12.955001L28.239779,23.423002 26.316794,23.933996 26.315794,23.933996 26.314791,23.933996C26.289793,23.894003 26.268795,23.860998 26.239796,23.816 26.180794,23.727003 26.090794,23.593 25.966795,23.429998 25.719799,23.103002 25.344801,22.660002 24.853804,22.223997 23.86281,21.346998 22.459822,20.516996 20.612837,20.516996 18.820851,20.517996 17.482865,21.292997 16.522869,22.134001 15.581878,22.961996 15.06488,23.842001 15.025883,23.913L15.024884,23.913999 15.023884,23.917997C14.848882,24.236997 14.509884,24.454 14.120887,24.454 13.73789,24.454 13.404893,24.244001 13.226897,23.933996 13.201896,23.894003 13.180896,23.860998 13.151897,23.816 13.092896,23.727003 13.001896,23.593 12.8789,23.429998 12.631901,23.103002 12.255904,22.660002 11.764907,22.223997 10.775916,21.346998 9.3709242,20.516996 7.5239427,20.516996 5.7329547,20.517996 4.3949659,21.292997 3.4339731,22.134001 2.47998,22.972997 1.9619844,23.866003 1.9349841,23.917997L1.9309844,23.914999 0,23.423002 0,7.3059986 0.12599848,6.8130028C0.16299883,6.7489998 0.7499941,5.6770012 1.9549845,4.5760033 3.1529751,3.4800029 5.0279605,2.337997 7.5239427,2.3390038z M26.211796,1.7470015C25.631798,1.7470014,25.159802,2.2170026,25.159802,2.7990029L25.159802,4.8779976 23.000818,4.8779976C22.418822,4.8779976 21.947829,5.3489983 21.947829,5.9290001 21.947829,6.509002 22.418822,6.9800026 23.000818,6.9800026L25.159802,6.9800026 25.159802,9.0190036C25.159802,9.6009967 25.631798,10.069999 26.211796,10.069999 26.790789,10.069999 27.260786,9.6009967 27.260786,9.0190036L27.260786,6.9800026 29.222769,6.9800026C29.800764,6.9800026 30.270762,6.509002 30.270762,5.9290001 30.270762,5.3489983 29.800764,4.8779976 29.222769,4.8779976L27.260786,4.8779976 27.260786,2.7990029C27.260786,2.2170026,26.790789,1.7470014,26.211796,1.7470015z M26.091793,0C27.603783,-8.3652139E-08 29.115772,0.57600385 30.269762,1.7290038 32.576744,4.0380013 32.576744,7.7789981 30.269762,10.085997 27.962782,12.394004 24.22181,12.394004 21.913828,10.085997 19.605845,7.7789981 19.605845,4.0380013 21.913828,1.7290038 23.06782,0.57600385 24.579808,-8.3652139E-08 26.091793,0z" Stretch="Uniform" Fill="#FF000000" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <TransformGroup.Children>
+                                                <RotateTransform Angle="0" />
+                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                            </TransformGroup.Children>
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,20,0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="#FF254061" Width="120" Height="70">
+                            <TextBlock TextAlignment="Center" Foreground="#FFFEFEFE" VerticalAlignment="Center" FontFamily="Calibri" FontSize="16" >
+                        Open <LineBreak /> GFN File
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" Background="#FFDCE6F2" Width="120" Height="70" Margin="0,5,0,0" Cursor="Hand" MouseLeftButtonDown="Grid_MouseLeftButtonDown_1">
+                            <Grid Width="48" Height="48" Visibility="Visible">
+                                <Path Data="M50.5,4.7500001C25.232973,4.75 4.75,25.232973 4.7500001,50.5 4.75,75.767029 25.232973,96.25 50.5,96.25 75.767029,96.25 96.25,75.767029 96.25,50.5 96.25,25.232973 75.767029,4.75 50.5,4.7500001z M50.5,0C78.390381,0 101,22.609621 101,50.5 101,78.390381 78.390381,101 50.5,101 22.609621,101 0,78.390381 0,50.5 0,22.609621 22.609621,0 50.5,0z" Stretch="Fill" Fill="#FF000000" Visibility="Visible" />
+                            </Grid>
+                            <Path Data="M7.5160018,7.0210069L32,7.0210069 26.112001,21.280001 2.2460016,21.280001z M0,0L9.2969996,0 11.158,4.0930236 26.091997,4.0930236 26.087999,5.3469933 6.3500015,5.3469933 0.46300124,21.280001 0,21.280001z" Stretch="Uniform" Fill="#FF000000" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                <Path.RenderTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <RotateTransform Angle="0" />
+                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </Path.RenderTransform>
+                            </Path>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Background="#FF254061" Width="120" Height="70">
+                            <TextBlock TextAlignment="Center" Foreground="#FFFEFEFE" VerticalAlignment="Center" FontFamily="Calibri" FontSize="16" >
+                        Default <LineBreak /> Settings
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" Background="#FFDCE6F2" Width="120" Height="70" Margin="0,5,0,0" Cursor="Hand" MouseLeftButtonDown="Grid_MouseLeftButtonDown_2">
+                            <Grid Width="48" Height="48" Visibility="Visible">
+                                <Path Data="M50.5,4.7500001C25.232973,4.75 4.75,25.232973 4.7500001,50.5 4.75,75.767029 25.232973,96.25 50.5,96.25 75.767029,96.25 96.25,75.767029 96.25,50.5 96.25,25.232973 75.767029,4.75 50.5,4.7500001z M50.5,0C78.390381,0 101,22.609621 101,50.5 101,78.390381 78.390381,101 50.5,101 22.609621,101 0,78.390381 0,50.5 0,22.609621 22.609621,0 50.5,0z" Stretch="Fill" Fill="#FF000000" Visibility="Visible" />
+                            </Grid>
+                            <Path Data="M16.099976,9.3999939C12.299988,9.3999939 9.2000122,12.299988 9.2000122,16 9.2000122,19.699982 12.200012,22.600006 16,22.699982 19.799988,22.699982 22.899963,19.799988 22.899963,16.100006 23,12.399994 19.899963,9.3999939 16.099976,9.3999939z M16.200012,0C17.599976,0,19,0.19998169,20.299988,0.6000061L20.799988,4.1000061C22.099976,4.6000061,23.399963,5.2999878,24.5,6.1999817L27.899963,4.8999939C29.799988,6.7999878,31.299988,9.1999817,32,11.899994L29.200012,14C29.299988,14.699982 29.399963,15.299988 29.399963,16 29.399963,16.699982 29.299988,17.399994 29.200012,18L32,20.199982C31.200012,22.799988,29.799988,25.199982,27.799988,27.100006L24.399963,26C23.299988,26.899994,22.099976,27.5,20.700012,28L20.099976,31.5C18.799988,31.799988 17.399963,32 15.899963,32 14.5,32 13.099976,31.799988 11.700012,31.399994L11.200012,27.899994C9.8999634,27.399994,8.5999756,26.699982,7.5,25.799988L4.0999756,27.100006C2.2000122,25.199982,0.70001221,22.799988,0,20.100006L3,18C2.8999634,17.299988 2.7999878,16.699982 2.7999878,16 2.7999878,15.299988 2.8999634,14.600006 3,14L0.20001221,11.799988C1,9.1000061,2.3999634,6.7999878,4.3999634,4.8999939L7.7999878,6C8.8999634,5.1000061,10.099976,4.5,11.5,4L12.099976,0.5C13.399963,0.19998169,14.799988,0,16.200012,0z" Stretch="Uniform" Fill="#FF000000" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                <Path.RenderTransform>
+                                    <TransformGroup>
+                                        <TransformGroup.Children>
+                                            <RotateTransform Angle="0" />
+                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        </TransformGroup.Children>
+                                    </TransformGroup>
+                                </Path.RenderTransform>
+                            </Path>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </telerik:RadBusyIndicator>
+    </Grid>
+    
+</Page>

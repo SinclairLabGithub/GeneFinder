@@ -1,0 +1,39 @@
+Version
+1
+Start Codons Number
+1
+ATG
+Stop Codons Number
+3
+TGA
+TAA
+TAG
+Min length
+30
+Max length
+300
+Conservation Cutoff
+0.2
+Genomefiles Number
+0
+Index File
+
+Genome Folder
+F:\\Harvard\\Genome
+Annotation BigTableName
+F:\\Harvard\\Annotation\\longhg38.tsv
+Annotation SmallTableName
+F:\\Harvard\\Annotation\\smallHG38.csv
+Conservation Folder
+F:\\Harvard\\Conservation
+Kozaks Number
+4
+GCCGCCACCATGGCG
+GCCGCCGCCATGGCG
+GCCGCCAACATGGCG
+GCCGCCGACATGGCG
+Bases to check
+90
+Conservation Threshold
+0.2
+End Header

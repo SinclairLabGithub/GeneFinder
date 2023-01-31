@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneFinder", "GeneFinder\GeneFinder.csproj", "{D98DEA56-F551-453F-9E70-20D6FF717052}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GeneFinderInstaller", "GeneFinderInstaller\GeneFinderInstaller.vdproj", "{CD2A5B6C-D052-4C6D-BA33-A91A964C1FD7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Debug|x64.ActiveCfg = Debug|x64
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Debug|x64.Build.0 = Debug|x64
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Debug|x86.ActiveCfg = Debug|x86
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Debug|x86.Build.0 = Debug|x86
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Release|x64.ActiveCfg = Release|x64
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Release|x64.Build.0 = Release|x64
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Release|x64.Deploy.0 = Release|x64
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Release|x86.ActiveCfg = Release|x86
+		{D98DEA56-F551-453F-9E70-20D6FF717052}.Release|x86.Build.0 = Release|x86
+		{CD2A5B6C-D052-4C6D-BA33-A91A964C1FD7}.Debug|x64.ActiveCfg = Debug
+		{CD2A5B6C-D052-4C6D-BA33-A91A964C1FD7}.Debug|x86.ActiveCfg = Debug
+		{CD2A5B6C-D052-4C6D-BA33-A91A964C1FD7}.Release|x64.ActiveCfg = Release
+		{CD2A5B6C-D052-4C6D-BA33-A91A964C1FD7}.Release|x86.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

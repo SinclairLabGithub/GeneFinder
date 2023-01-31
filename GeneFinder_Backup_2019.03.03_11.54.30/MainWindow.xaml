@@ -1,0 +1,142 @@
+﻿<Window
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="GeneFinder.MainWindow"
+                Title="Gene Finder" Height="890" Width="900" Icon="GFicono1.ico" MinHeight="890" MinWidth="900" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="LinksGrid" Background="#FF295788" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" x:Name="linkExtractor" Cursor="Hand" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" MaxWidth="180" TextWrapping="Wrap" TextAlignment="Center" Foreground="White"  IsEnabled="False" MouseLeftButtonDown="linkExtractor_MouseLeftButtonDown">Extractor</TextBlock>
+                <TextBlock Grid.Row="1" x:Name="linkClassifier" Cursor="Hand" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" MaxWidth="180" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FF53769E" MouseLeftButtonDown="linkClassifier_MouseLeftButtonDown" >Classifier</TextBlock>
+                <TextBlock Grid.Row="2" x:Name="linkRealign" Cursor="Hand" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" MaxWidth="180" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FF53769E" MouseLeftButtonDown="linkRealign_MouseLeftButtonDown" >Realign</TextBlock>
+                <TextBlock Grid.Row="3" x:Name="linkConservation" Cursor="Hand" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" MaxWidth="180" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FF53769E" MouseLeftButtonDown="linkConservation_MouseLeftButtonDown" >Conservation, Kozak and Annotation</TextBlock>
+                <TextBlock Grid.Row="4" x:Name="linkRNA" Cursor="Hand" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" MaxWidth="180" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FF53769E" MouseLeftButtonDown="linkRNA_MouseLeftButtonDown" >RNASeq Analysis</TextBlock>
+                <TextBlock Grid.Row="5" x:Name="linkStatistics" Cursor="Hand" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" MaxWidth="180" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FF53769E" MouseLeftButtonDown="linkStatistics_MouseLeftButtonDown" >Statistics</TextBlock>
+                <TextBlock Grid.Row="6" x:Name="linkReport" Cursor="Hand" FontWeight="Bold" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" MaxWidth="180" TextWrapping="Wrap" TextAlignment="Center" Foreground="#FF53769E" MouseLeftButtonDown="linkReport_MouseLeftButtonDown" >Report</TextBlock>
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Frame NavigationUIVisibility="Hidden" x:Name="ContentFrame">
+
+                </Frame>
+            </Grid>
+        </Grid>
+
+
+
+        <!--<telerik:RadBusyIndicator x:Name="busyIndicator" Grid.RowSpan="2" Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" >
+                        <Label FontSize="20" Margin="7,0" FontWeight="Bold" Content="1.- Extractor"/>
+                        <Label FontSize="20" Margin="7,0" Cursor="Hand" Content="2.- Classifier"/>
+                        <Label FontSize="20" Margin="7,0" Cursor="Hand" Content="3.- Database Crossing"/>
+                        <Label FontSize="20" Margin="7,0" Cursor="Hand" Content="4.- RNASeq Analysis"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <telerik:RadButton Grid.Column="0" x:Name="OpenGzFileButton" Content="Analize gz File" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Click="OpenGzFileButton_Click"  />
+                        <telerik:RadCartesianChart Grid.Column="1" x:Name="speciesChart" Margin="15">
+                            <telerik:RadCartesianChart.Grid>
+                                <telerik:CartesianChartGrid StripLinesVisibility="Y">
+                                    <telerik:CartesianChartGrid.YStripeBrushes>
+                                        <SolidColorBrush Color="#FFD7D7D7" Opacity="0.3"/>
+                                        <SolidColorBrush Color="Transparent"/>
+                                    </telerik:CartesianChartGrid.YStripeBrushes>
+                                </telerik:CartesianChartGrid>
+                            </telerik:RadCartesianChart.Grid>
+                            <telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:LinearAxis/>
+                            </telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:CategoricalAxis LabelFitMode="Rotate"/>
+                            </telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:BarSeries x:Name="serieSpecies"/>
+                        </telerik:RadCartesianChart>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <StackPanel>
+                            <Label FontWeight="Bold" FontSize="18" Content="Select species:"/>
+                            <StackPanel x:Name="selectionManual" HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Label Content="Specie 1:"/>
+                                <TextBox x:Name="textBoxSpecie1" Width="100" Margin="0,0,15,0"/>
+                                <Label Content="Specie 2:"/>
+                                <TextBox x:Name="textBoxSpecie2" Width="100" Margin="0,0,15,0"/>
+                                <Label Content="Specie 3:"/>
+                                <TextBox x:Name="textBoxSpecie3" Width="100"/>
+                            </StackPanel>
+                            <StackPanel x:Name="selectionAuto" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="Collapsed">
+                                <Label Content="Specie 1:"/>
+                                <telerik:RadComboBox x:Name="comboBoxSpecie1" Margin="0,0,15,0" MinWidth="100" SelectionChanged="comboBoxSpecie1_SelectionChanged" />
+                                <Label Content="Specie 2:"/>
+                                <telerik:RadComboBox x:Name="comboBoxSpecie2" Margin="0,0,15,0" MinWidth="100" SelectionChanged="comboBoxSpecie2_SelectionChanged"/>
+                                <Label Content="Specie 3:"/>
+                                <telerik:RadComboBox x:Name="comboBoxSpecie3" MinWidth="100" SelectionChanged="comboBoxSpecie3_SelectionChanged"/>
+                            </StackPanel>
+                            <StackPanel x:Name="selectionNumber" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="Collapsed">
+                                <Label Content="Paragraph inlcuded:"/>
+                                <Label x:Name="labelNumParagraph" Content="0"/>
+                            </StackPanel>
+                            <Label FontWeight="Bold" FontSize="18" Content="Lenghts:"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Minimum Lenght:"/>
+                                <telerik:RadNumericUpDown x:Name="minLenght" Value="30" Minimum="6" IsInteger="True" Maximum="10000" Margin="0,0,15,0" />
+                                <Label Content="Maximum Lenght:"/>
+                                <telerik:RadNumericUpDown x:Name="maxLenght" Value="300" Minimum="{Binding Value, ElementName=minLenght}" IsInteger="True" Maximum="10000" />
+                            </StackPanel>
+                            <Label FontWeight="Bold" FontSize="18" Content="Start and Stop Codons:"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label Content="Start codons:" VerticalAlignment="Center" FontWeight="Bold"/>
+                                <telerik:RadListBox Height="75" x:Name="listStartCodons" Width="50">
+                                    <System:String>ATG</System:String>
+                                </telerik:RadListBox>
+                                <Button x:Name="deleteStartButton" Content="Delete" Height="22" Margin="5,0" Click="deleteStartButton_Click"/>
+                                <TextBox x:Name="textBoxAddStart" Height="22" Width="50" Margin="0,0,5,0"/>
+                                <Button x:Name="addStartButton" Content="Add" Height="22" Margin="5,0" Click="addStartButton_Click"/>
+
+                                <Label Content="Stop codons:" VerticalAlignment="Center" FontWeight="Bold" Margin="15,0,0,0"/>
+                                <telerik:RadListBox Height="75" x:Name="listStopCodons" Width="50">
+                                    <System:String>TGA</System:String>
+                                    <System:String>TAA</System:String>
+                                    <System:String>TAG</System:String>
+                                </telerik:RadListBox>
+                                <Button x:Name="deleteStopButton" Content="Delete" Height="22" Margin="5,0" Click="deleteStopButton_Click"/>
+                                <TextBox x:Name="textBoxAddStop" Height="22" Width="50" Margin="0,0,5,0"/>
+                                <Button x:Name="addStopButton" Content="Add" Height="22" Margin="5,0" Click="addStopButton_Click"/>
+                            </StackPanel>
+                            <Button Content="Extract Sequences" x:Name="extractSequencesButton" HorizontalAlignment="Right" Margin="0,15,15,0" Click="extractSequencesButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </telerik:RadBusyIndicator>-->
+    </Grid>
+</Window>
